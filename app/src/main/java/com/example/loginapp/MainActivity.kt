@@ -12,23 +12,28 @@ class MainActivity : AppCompatActivity() {
         /*setContentView(R.layout.activity_main)*/
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+        initEvent()
+    }
 
-        val btnLogin = mainBinding.idBtnLogin
-        val editUser = mainBinding.idEtUser
-        val editContra = mainBinding.idEtPassword
+    private fun initEvent() {
+        mainBinding.idBtnLogin.setOnClickListener {
+            val username = mainBinding.idEtUser.text.toString()
+            val contra = mainBinding.idEtPassword.text.toString()
 
-        btnLogin.setOnClickListener {
-            val username = editUser.text.toString()
-            val contra = editContra.text.toString()
-            if (username.isNotEmpty() && contra.isNotEmpty()) {
+            if (validarDatos(username) && validarDatos(contra)) {
                 val intent = Intent(this, SecondActivity::class.java)
                 intent.putExtra("username", username)
-                intent.putExtra("password",contra)
+                intent.putExtra("password", contra)
                 startActivity(intent)
             } else {
-                editUser.error = "Usuario incorrecto"
-                editContra.error = "Contraseña incorrecta"
+                mainBinding.idEtUser.error = "Usuario incorrecto"
+                mainBinding.idEtPassword.error = "Contraseña incorrecta"
             }
         }
+    }
+
+    private fun validarDatos(datos: String): Boolean {
+        val regex = Regex("^[a-zA-Z][0-9a-zA-z]+$")
+        return datos.matches(regex)
     }
 }

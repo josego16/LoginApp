@@ -5,4 +5,5 @@
     <string name="texto_btn">Login</string>
     <string name="text_card_main">Diseñado por Jose Maria Gomez Liñan</string>
     <string name="descripcion_imagen">Esto es una imagen</string>
+    <string name="texto_btnVolver">Volver</string>
 </resources>
